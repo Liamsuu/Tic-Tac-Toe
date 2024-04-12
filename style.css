@@ -28,3 +28,11 @@ body {
   align-items: center;
   font-size: 5rem;
 }
+
+#sidebar {
+  margin-left: 2rem;
+  display: flex;
+  flex-direction: column;
+  width: 5vw;
+  height: 50vh;
+}

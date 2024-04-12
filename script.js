@@ -39,6 +39,13 @@ function Gameboard() {
     return gameboard;
   };
 
+  const resetGameboard = () => {
+    for (let x = 0; x < gameboard.length; x++) {
+      gameboard[x] = "";
+      createVirtualGrid();
+    }
+  };
+
   const updateGameboard = (position, playerObj) => {
     /// position will be a number, from 0 to 8 which will correspond to the squares on the board.
     //  playerObj will just be used to decide whether to place an X or O there based on if they are player1 or player2.
@@ -123,7 +130,7 @@ function Gameboard() {
     }
   };
 
-  const createViualGrid = () => {
+  const createVirtualGrid = () => {
     // used to create, and update the visual grid as moves are played.
 
     while (grid_wrapper.firstChild) {
@@ -140,8 +147,9 @@ function Gameboard() {
       gridBox.onclick = function () {
         if (gameboard[gridBox.id] === "") {
           updateGameboard(Number(gridBox.id), trackTurn.checkTurn());
-          createViualGrid(trackTurn);
+          createVirtualGrid(trackTurn);
           console.log(gameboard); // for testing purposes right now
+          // by here just make it check both users win conditions, and draw. use IF statements and create dom elements showing the outcome.
         }
       };
     }
@@ -152,7 +160,8 @@ function Gameboard() {
     updateGameboard,
     checkWinCondition,
     checkForDraw,
-    createViualGrid,
+    createVirtualGrid,
+    resetGameboard,
   };
 }
 
@@ -175,27 +184,21 @@ const liam = Player("Liam", 1);
 const john = Player("John", 2);
 
 const trackTurn = Turn(liam, john);
-console.log(trackTurn.checkTurn());
 // works perfectly to alternate turns.
 
 const grid_wrapper = document.querySelector("#wrapper");
 const currentGameboard = Gameboard();
-currentGameboard.createViualGrid(trackTurn);
+currentGameboard.createVirtualGrid(trackTurn);
 
-// currentGameboard.updateGameboard(0, john);
-// currentGameboard.updateGameboard(1, john);
-// currentGameboard.updateGameboard(2, liam);
-// currentGameboard.updateGameboard(3, john);
-// currentGameboard.updateGameboard(4, john);
-// currentGameboard.updateGameboard(5, liam);
-// currentGameboard.updateGameboard(6, liam);
-// currentGameboard.updateGameboard(7, liam);
-// currentGameboard.updateGameboard(8, john);
-
-// currentGameboard.createViualGrid();
 console.log(currentGameboard.checkWinCondition(liam));
 console.log(currentGameboard.checkWinCondition(john));
 
 console.log(currentGameboard.checkForDraw(john, liam));
 
 console.log(currentGameboard.getGameboard());
+
+const resetBtn = document.querySelector("#reset-btn");
+
+resetBtn.addEventListener("click", () => {
+  currentGameboard.resetGameboard();
+});
