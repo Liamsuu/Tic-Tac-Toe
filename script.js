@@ -123,13 +123,38 @@ function Gameboard() {
     }
   };
 
-  return { getGameboard, updateGameboard, checkWinCondition, checkForDraw };
+  const createViualGrid = () => {
+    // used to create, and update the visual grid as moves are played.
+
+    while (grid_wrapper.firstChild) {
+      grid_wrapper.removeChild(grid_wrapper.firstChild);
+    }
+    // resets the visual board on each turn so new board array that is updated on each click can be displayed
+
+    for (let x = 0; x < gameboard.length; x++) {
+      const gridBox = document.createElement("div");
+      gridBox.className = "grid-boxes";
+      gridBox.id = x;
+      gridBox.textContent = gameboard[x];
+      grid_wrapper.appendChild(gridBox);
+    }
+  };
+
+  return {
+    getGameboard,
+    updateGameboard,
+    checkWinCondition,
+    checkForDraw,
+    createViualGrid,
+  };
 }
 
 const liam = Player("Liam", 1);
 const john = Player("John", 2);
-
+const grid_wrapper = document.querySelector("#wrapper");
 const currentGameboard = Gameboard();
+currentGameboard.createViualGrid();
+
 currentGameboard.updateGameboard(0, john);
 currentGameboard.updateGameboard(1, john);
 currentGameboard.updateGameboard(2, liam);
@@ -140,6 +165,7 @@ currentGameboard.updateGameboard(6, liam);
 currentGameboard.updateGameboard(7, liam);
 currentGameboard.updateGameboard(8, john);
 
+currentGameboard.createViualGrid();
 console.log(currentGameboard.checkWinCondition(liam));
 console.log(currentGameboard.checkWinCondition(john));
 

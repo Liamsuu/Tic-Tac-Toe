@@ -2,3 +2,29 @@
   padding: 0;
   margin: 0;
 }
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+#wrapper {
+  display: grid;
+  height: 50vh;
+  width: 50vh;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 1rem;
+  padding: 2rem;
+  border: 1px solid black;
+}
+
+.grid-boxes {
+  display: flex;
+  background-color: blue; /* will remove when finished, just for prototype */
+  justify-content: center;
+  align-items: center;
+  font-size: 5rem;
+}
