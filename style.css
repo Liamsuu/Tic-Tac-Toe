@@ -5,6 +5,7 @@
 
 body {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   height: 100vh;
@@ -34,5 +35,8 @@ body {
   display: flex;
   flex-direction: column;
   width: 5vw;
-  height: 50vh;
+}
+
+#main-content {
+  display: flex;
 }

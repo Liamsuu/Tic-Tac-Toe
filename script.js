@@ -70,7 +70,7 @@ function Gameboard() {
           checkWinCondition(playerObj) === false &&
           checkWinCondition(playerObj2) === false
         ) {
-          return "Draw!";
+          return true;
         }
       }
     }
@@ -150,6 +150,18 @@ function Gameboard() {
           createVirtualGrid(trackTurn);
           console.log(gameboard); // for testing purposes right now
           // by here just make it check both users win conditions, and draw. use IF statements and create dom elements showing the outcome.
+          if (checkWinCondition(player1) !== false) {
+            const winner = (document.createElement("h1").textContent =
+              player1.winnerPlayer());
+            winner.id = "winner-text";
+            document.body.append(winner);
+          } else if (checkWinCondition(player2) !== false) {
+            const winner = (document.createElement("h1").textContent =
+              player2.winnerPlayer());
+            document.body.append(winner);
+
+            // change this, it is appending after the script tag in the html, it should just be after main-content
+          }
         }
       };
     }
@@ -180,20 +192,20 @@ function Turn(playerObj1, playerObj2) {
   return { checkTurn };
 }
 
-const liam = Player("Liam", 1);
-const john = Player("John", 2);
+const player1 = Player("Liam", 1);
+const player2 = Player("John", 2);
 
-const trackTurn = Turn(liam, john);
+const trackTurn = Turn(player1, player2);
 // works perfectly to alternate turns.
 
 const grid_wrapper = document.querySelector("#wrapper");
 const currentGameboard = Gameboard();
 currentGameboard.createVirtualGrid(trackTurn);
 
-console.log(currentGameboard.checkWinCondition(liam));
-console.log(currentGameboard.checkWinCondition(john));
+console.log(currentGameboard.checkWinCondition(player1));
+console.log(currentGameboard.checkWinCondition(player2));
 
-console.log(currentGameboard.checkForDraw(john, liam));
+console.log(currentGameboard.checkForDraw(player1, player2));
 
 console.log(currentGameboard.getGameboard());
 
