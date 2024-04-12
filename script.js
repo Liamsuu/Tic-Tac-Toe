@@ -137,6 +137,13 @@ function Gameboard() {
       gridBox.id = x;
       gridBox.textContent = gameboard[x];
       grid_wrapper.appendChild(gridBox);
+      gridBox.onclick = function () {
+        if (gameboard[gridBox.id] === "") {
+          updateGameboard(Number(gridBox.id), trackTurn.checkTurn());
+          createViualGrid(trackTurn);
+          console.log(gameboard); // for testing purposes right now
+        }
+      };
     }
   };
 
@@ -149,23 +156,43 @@ function Gameboard() {
   };
 }
 
+function Turn(playerObj1, playerObj2) {
+  let whosTurn = 1;
+
+  const checkTurn = () => {
+    if (whosTurn === 1) {
+      whosTurn = 2;
+      return playerObj1;
+    } else {
+      whosTurn = 1;
+      return playerObj2;
+    }
+  };
+  return { checkTurn };
+}
+
 const liam = Player("Liam", 1);
 const john = Player("John", 2);
+
+const trackTurn = Turn(liam, john);
+console.log(trackTurn.checkTurn());
+// works perfectly to alternate turns.
+
 const grid_wrapper = document.querySelector("#wrapper");
 const currentGameboard = Gameboard();
-currentGameboard.createViualGrid();
+currentGameboard.createViualGrid(trackTurn);
 
-currentGameboard.updateGameboard(0, john);
-currentGameboard.updateGameboard(1, john);
-currentGameboard.updateGameboard(2, liam);
-currentGameboard.updateGameboard(3, john);
-currentGameboard.updateGameboard(4, john);
-currentGameboard.updateGameboard(5, liam);
-currentGameboard.updateGameboard(6, liam);
-currentGameboard.updateGameboard(7, liam);
-currentGameboard.updateGameboard(8, john);
+// currentGameboard.updateGameboard(0, john);
+// currentGameboard.updateGameboard(1, john);
+// currentGameboard.updateGameboard(2, liam);
+// currentGameboard.updateGameboard(3, john);
+// currentGameboard.updateGameboard(4, john);
+// currentGameboard.updateGameboard(5, liam);
+// currentGameboard.updateGameboard(6, liam);
+// currentGameboard.updateGameboard(7, liam);
+// currentGameboard.updateGameboard(8, john);
 
-currentGameboard.createViualGrid();
+// currentGameboard.createViualGrid();
 console.log(currentGameboard.checkWinCondition(liam));
 console.log(currentGameboard.checkWinCondition(john));
 
