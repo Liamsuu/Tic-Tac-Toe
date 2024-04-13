@@ -64,21 +64,20 @@ function Gameboard() {
   };
 
   const checkForDraw = (playerObj, playerObj2) => {
-    let fullBoard;
+    let emptySpaces = 0;
     for (let x = 0; x < getGameboard().length; x++) {
       if (getGameboard()[x] === "") {
-        break;
-      } else {
-        fullBoard = true;
+        emptySpaces++;
       }
-      if (fullBoard === true) {
-        if (
-          checkWinCondition(playerObj) === false &&
-          checkWinCondition(playerObj2) === false
-        ) {
-          return true;
-        }
-      }
+    }
+    if (
+      emptySpaces === 0 &&
+      checkWinCondition(playerObj) === false &&
+      checkWinCondition(playerObj2) === false
+    ) {
+      return true;
+    } else {
+      return false;
     }
   };
 
@@ -240,5 +239,4 @@ resetBtn.addEventListener("click", () => {
   } else if (drawText !== null) {
     drawText.remove();
   }
-  // write else if for draw text too when got it working.
 });
