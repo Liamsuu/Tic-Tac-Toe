@@ -34,6 +34,12 @@ function Player(name, p1_or_p2) {
 
 function Gameboard() {
   let gameboard = ["", "", "", "", "", "", "", "", ""];
+  let isWon = false;
+
+  const changeWon = () => {
+    // used to reset game when reset button is clicked
+    isWon = false;
+  };
 
   const getGameboard = () => {
     return gameboard;
@@ -137,30 +143,35 @@ function Gameboard() {
       grid_wrapper.removeChild(grid_wrapper.firstChild);
     }
     // resets the visual board on each turn so new board array that is updated on each click can be displayed
-
     for (let x = 0; x < gameboard.length; x++) {
       const gridBox = document.createElement("div");
+
       gridBox.className = "grid-boxes";
       gridBox.id = x;
       gridBox.textContent = gameboard[x];
       grid_wrapper.appendChild(gridBox);
+
       gridBox.onclick = function () {
-        if (gameboard[gridBox.id] === "") {
+        if (gameboard[gridBox.id] === "" && isWon === false) {
           updateGameboard(Number(gridBox.id), trackTurn.checkTurn());
           createVirtualGrid(trackTurn);
-          console.log(gameboard); // for testing purposes right now
+          console.log(gameboard);
+
           // by here just make it check both users win conditions, and draw. use IF statements and create dom elements showing the outcome.
           if (checkWinCondition(player1) !== false) {
-            const winner = (document.createElement("h1").textContent =
-              player1.winnerPlayer());
+            const winner = document.createElement("h1");
+            winner.textContent = player1.winnerPlayer();
+            const scriptElement = document.querySelector("script");
             winner.id = "winner-text";
-            document.body.append(winner);
+            document.body.insertBefore(winner, scriptElement);
+            isWon = true;
           } else if (checkWinCondition(player2) !== false) {
-            const winner = (document.createElement("h1").textContent =
-              player2.winnerPlayer());
-            document.body.append(winner);
-
-            // change this, it is appending after the script tag in the html, it should just be after main-content
+            const winner = document.createElement("h1");
+            winner.textContent = player2.winnerPlayer();
+            const scriptElement = document.querySelector("script");
+            winner.id = "winner-text";
+            document.body.insertBefore(winner, scriptElement);
+            isWon = true;
           }
         }
       };
@@ -174,6 +185,7 @@ function Gameboard() {
     checkForDraw,
     createVirtualGrid,
     resetGameboard,
+    changeWon,
   };
 }
 
@@ -213,4 +225,10 @@ const resetBtn = document.querySelector("#reset-btn");
 
 resetBtn.addEventListener("click", () => {
   currentGameboard.resetGameboard();
+  const wonText = document.querySelector("#winner-text");
+  currentGameboard.changeWon();
+  if (wonText !== null) {
+    wonText.remove();
+  }
+  // write else if for draw text too when got it working.
 });
