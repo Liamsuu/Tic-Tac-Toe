@@ -3,12 +3,25 @@
   margin: 0;
 }
 
+@font-face {
+  font-family: monserrat;
+  src: url(./assets/fonts/Montserrat/Montserrat-VariableFont_wght.ttf);
+}
+
+:root {
+  --main-clr: #a5b4fc;
+  --text-clr: #eef2ff;
+}
+
 body {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   height: 100vh;
+  font-family: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  background-color: #e0e7ff;
 }
 
 #wrapper {
@@ -19,15 +32,18 @@ body {
   grid-template-rows: repeat(3, 1fr);
   gap: 1rem;
   padding: 2rem;
-  border: 1px solid black;
 }
 
 .grid-boxes {
   display: flex;
-  background-color: blue; /* will remove when finished, just for prototype */
   justify-content: center;
   align-items: center;
   font-size: 5rem;
+  border-radius: 5px;
+  font-family: monserrat, system-ui, "Segoe UI", Roboto, Helvetica, Arial,
+    sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  color: var(--text-clr);
+  background-color: var(--main-clr);
 }
 
 #sidebar {
@@ -39,4 +55,26 @@ body {
 
 #main-content {
   display: flex;
+}
+
+h1 {
+  background-color: var(--main-clr);
+  color: var(--text-clr);
+  padding: 1rem;
+  border-radius: 2rem;
+  font-family: monserrat, system-ui, "Segoe UI", Roboto, Helvetica, Arial,
+    sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+button {
+  display: flex;
+  padding: 1rem;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--main-clr);
+  color: var(--text-clr);
+  border: none;
+  border-radius: 1rem;
+  font-weight: bold;
+  font-size: 1.1rem;
 }

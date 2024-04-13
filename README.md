@@ -9,7 +9,3 @@ Standard Tic Tac Toe Grid as Follows:
 | 3 | 4 | 5 |
 
 | 6 | 7 | 8 |
-
-PLayer 1 = X
-
-Player 2 = O

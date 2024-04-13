@@ -15,9 +15,9 @@ function Player(name, p1_or_p2) {
 
   const winnerPlayer = () => {
     if (playerSymbol === "X") {
-      return "Player 1 wins!";
+      return "Crosses Win!";
     } else if (playerSymbol === "O") {
-      return "Player 2 wins!";
+      return "Noughts Win!";
     }
 
     // just used to declare winner, helper function for gameboard. Gameboard checks if 3 symbols are there, if so just use this function to check
