@@ -154,7 +154,6 @@ function Gameboard() {
         if (gameboard[gridBox.id] === "" && isWon === false) {
           updateGameboard(Number(gridBox.id), trackTurn.checkTurn());
           createVirtualGrid(trackTurn);
-          console.log(gameboard);
 
           // by here just make it check both users win conditions, and draw. use IF statements and create dom elements showing the outcome.
           if (checkWinCondition(player1) !== false) {
@@ -219,13 +218,6 @@ const trackTurn = Turn(player1, player2);
 const grid_wrapper = document.querySelector("#wrapper");
 const currentGameboard = Gameboard();
 currentGameboard.createVirtualGrid(trackTurn);
-
-console.log(currentGameboard.checkWinCondition(player1));
-console.log(currentGameboard.checkWinCondition(player2));
-
-console.log(currentGameboard.checkForDraw(player1, player2));
-
-console.log(currentGameboard.getGameboard());
 
 const resetBtn = document.querySelector("#reset-btn");
 
