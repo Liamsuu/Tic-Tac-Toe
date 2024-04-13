@@ -173,6 +173,13 @@ function Gameboard() {
             document.body.insertBefore(winner, scriptElement);
             isWon = true;
           }
+          if (checkForDraw(player1, player2) === true) {
+            const drawText = document.createElement("h1");
+            drawText.textContent = "Draw!";
+            const scriptElement = document.querySelector("script");
+            drawText.id = "draw-text";
+            document.body.insertBefore(drawText, scriptElement);
+          }
         }
       };
     }
@@ -226,9 +233,12 @@ const resetBtn = document.querySelector("#reset-btn");
 resetBtn.addEventListener("click", () => {
   currentGameboard.resetGameboard();
   const wonText = document.querySelector("#winner-text");
+  const drawText = document.querySelector("#draw-text");
   currentGameboard.changeWon();
   if (wonText !== null) {
     wonText.remove();
+  } else if (drawText !== null) {
+    drawText.remove();
   }
   // write else if for draw text too when got it working.
 });
